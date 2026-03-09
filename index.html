@@ -113,8 +113,15 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(10,15,20,0.95);
-border-bottom:1px solid #1f2937;
+
+/* glass effect */
+background:rgba(10,15,20,0.55);
+backdrop-filter:blur(7px);
+-webkit-backdrop-filter:blur(10px);
+
+/* border */
+border-bottom:1px solid rgba(255,255,255,0.06);
+
 z-index:1000;
 }
 
@@ -634,6 +641,16 @@ color:white;
 }
 
 }
+/*Footer*/
+.footer{
+text-align:center;
+padding:40px 0;
+font-size:0.85rem;
+color:#9ca3af;
+border-top:1px solid #1f2937;
+margin-top:60px;
+letter-spacing:0.03em;
+}
 
 </style>
 </head>
@@ -807,7 +824,9 @@ I’m an Electrical Engineering student passionate about embedded systems, elect
 
 </div>
 </section>
-
+<footer class="footer">
+© 2026 Vansh Soni — Built with Passion & Coffee
+</footer>
 <script>
 
 /* NAVBAR */
