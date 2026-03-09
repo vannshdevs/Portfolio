@@ -74,25 +74,37 @@ box-shadow:0 10px 25px rgba(0,0,0,0.25);
 /*Robot-BG*/
 .robot-bg{
 position:fixed;
-right: 1%;
+right:1%;
 top:50%;
 transform:translateY(-50%);
-width: 600px;
-@media(max-width:900px){
-
-.robot-bg{
-display:none;
-}
-
-}
-opacity:0.20;          /* makes it faint */
-pointer-events:none;   /* prevents clicking */
+width:600px;
+opacity:0.20;
+pointer-events:none;
 z-index:0;
 }
 
 .robot-bg img{
 width:100%;
 height:auto;
+}
+
+/* MOBILE POSITION */
+@media(max-width:900px){
+
+.robot-bg{
+left:50%;
+right:auto;
+top:50%;
+transform:translate(-50%,-50%);
+width:280px;
+opacity:0.12;
+}
+
+}
+
+section{
+position:relative;
+z-index:2;
 }
 
 /* ---------------- NAVBAR ---------------- */
@@ -390,15 +402,23 @@ background:white;
 color:#0a0f14;
 padding:20px;
 border-radius:8px;
-cursor:pointer;
-text-align:center;
-transition:.3s;
+transition:0.3s;
 }
 
 .category-card.active,
 .category-card:hover{
 background:#f59e0b;
 color:white;
+}
+
+.category-arrow{
+font-size:14px;
+transition:transform 0.3s ease;
+}
+
+.category-card.active .category-arrow{
+transform:rotate(180deg);
+color: white;
 }
 
 .project-panel{
@@ -683,9 +703,20 @@ I’m an Electrical Engineering student passionate about embedded systems, elect
 <div class="projects-layout">
 
 <div class="project-categories">
-<div class="category-card" data-cat="major">Major Projects</div>
-<div class="category-card" data-cat="minor">Minor Projects</div>
-<div class="category-card" data-cat="fun">Fun Projects</div>
+<div class="category-card" data-cat="major">
+<span>Major Projects</span>
+<i class="fas fa-angle-down category-arrow"></i>
+</div>
+
+<div class="category-card" data-cat="minor">
+<span>Minor Projects</span>
+<i class="fas fa-angle-down category-arrow"></i>
+</div>
+
+<div class="category-card" data-cat="fun">
+<span>Fun Projects</span>
+<i class="fas fa-angle-down category-arrow"></i>
+</div>
 </div>
 
 <div class="project-panel">
@@ -974,36 +1005,54 @@ loadProjects("major");
 catCards[0].classList.add("active");
 
 catCards.forEach(card=>{
+
 card.addEventListener("click",()=>{
 
-/* REMOVE OLD MOBILE PROJECT LISTS */
+const type = card.dataset.cat;
+
+/* REMOVE ANY OLD MOBILE LISTS */
 document.querySelectorAll(".mobile-project-list").forEach(list=>{
 list.remove();
 });
 
-const type=card.dataset.cat;
+/* ---------- DESKTOP BEHAVIOR ---------- */
+if(window.innerWidth > 900){
 
-if(window.innerWidth>900){
+/* reset category styles */
 catCards.forEach(c=>c.classList.remove("active"));
+
+/* activate selected category */
 card.classList.add("active");
+
+/* show panel */
 panel.style.display="block";
-loadProjects(type);
-}else{
 
-catCards.forEach(c=>{
-c.classList.remove("active");
-if(c.nextElementSibling?.classList.contains("mobile-project-list")){
-c.nextElementSibling.remove();
+/* load projects */
+loadProjects(type);
+
 }
-});
+
+/* ---------- MOBILE BEHAVIOR ---------- */
+else{
+
+/* toggle close if already open */
+if(card.classList.contains("active")){
+card.classList.remove("active");
+return;
+}
+
+/* reset other categories */
+catCards.forEach(c=>c.classList.remove("active"));
 
 card.classList.add("active");
 
-const list=document.createElement("div");
+/* create mobile list container */
+const list = document.createElement("div");
 list.className="mobile-project-list";
 
+/* generate projects */
 projectData[type].forEach(p=>{
-list.innerHTML+=`
+list.innerHTML += `
 <div class="project-box">
 
 <div class="project-header">
@@ -1015,15 +1064,19 @@ list.innerHTML+=`
 ${p.desc}
 </div>
 
-</div>`;
+</div>
+`;
+});
 
+/* add dropdown behavior */
 list.querySelectorAll(".project-box").forEach(box=>{
 
 box.addEventListener("click",()=>{
 
 if(box.classList.contains("active")){
 box.classList.remove("active");
-}else{
+}
+else{
 
 list.querySelectorAll(".project-box")
 .forEach(b=>b.classList.remove("active"));
@@ -1035,14 +1088,15 @@ box.classList.add("active");
 });
 
 });
-});
 
+/* insert list below clicked category */
 card.insertAdjacentElement("afterend",list);
+
 }
 
 });
-});
 
+});
 </script>
 
 </body>
