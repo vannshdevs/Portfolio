@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vansh Soni | Mechatronics and Electronics Engineer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------------- GLOBAL ---------------- */
+
+html{scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background:#0a0f14;
+color:#e6edf3;
+font-family:'JetBrains Mono', monospace;
+line-height:1.6;
+}
+
+h1,h2,h3,h4,nav,.logo{
+font-family:'Space Grotesk', sans-serif;
+letter-spacing:-0.02em;
+}
+
+section{
+padding-top:120px;   /* space for navbar */
+padding-bottom:80px;
+scroll-margin-top:100px;
+}
+
+.section-container{
+width:90%;
+max-width:1100px;
+margin:auto;
+padding:0px 0 20px;
+}
+
+.section-heading{
+font-size:3rem;
+margin-bottom:10px;
+}
+
+.section-heading::after{
+content:"";
+display:block;
+width:60px;
+height:3px;
+background:#f59e0b;
+margin-top:12px;
+}
+
+/*Explore Button*/
+.explore-btn{
+display:inline-block;
+margin-top:30px;
+padding:12px 28px;
+background:#f59e0b;
+color:#ffffff;
+border-radius:30px;
+font-weight:450;
+text-decoration:none;
+transition:0.3s ease;
+}
+
+.explore-btn:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+/*Robot-BG*/
+.robot-bg{
+position:fixed;
+right: 1%;
+top:50%;
+transform:translateY(-50%);
+width: 400px;
+@media(max-width:900px){
+
+.robot-bg{
+display:none;
+}
+
+}
+opacity:0.07;          /* makes it faint */
+pointer-events:none;   /* prevents clicking */
+z-index:0;
+}
+
+.robot-bg img{
+width:100%;
+height:auto;
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(10,15,20,0.95);
+border-bottom:1px solid #1f2937;
+z-index:1000;
+}
+
+.nav-container{
+width:90%;
+max-width:1100px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+}
+
+.logo span{color:#f59e0b;}
+
+.nav-menu{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+/* NAV LINK BASE */
+.nav-menu a{
+position:relative;
+text-decoration:none;
+color:#e6edf3;
+transition:color 0.3s ease;
+}
+
+/* UNDERLINE (hidden by default) */
+.nav-menu a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-6px;
+width:0%;
+height:2px;
+background:#f59e0b;
+transition:width 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.nav-menu a:hover{
+color:#f59e0b;
+}
+
+.nav-menu a:hover::after{
+width:100%;
+}
+
+/* ACTIVE LINK */
+.nav-menu a.active{
+color:#f59e0b;
+}
+
+.nav-menu a.active::after{
+width:100%;
+}
+
+.nav-menu a:hover{color:#f59e0b;}
+
+
+.hamburger{
+display:none;
+flex-direction:column;
+width:28px;
+height:22px;
+position:relative;
+cursor:pointer;
+}
+
+.hamburger span{
+position:absolute;
+width:100%;
+height:3px;
+background:white;
+transition:.3s;
+}
+
+.hamburger span:nth-child(1){top:0;}
+.hamburger span:nth-child(2){top:9px;}
+.hamburger span:nth-child(3){top:18px;}
+
+.hamburger.active span:nth-child(1){
+top:9px;
+transform:rotate(45deg);
+}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){
+top:9px;
+transform:rotate(-45deg);
+}
+
+@media(max-width:768px){
+.nav-menu{
+position:absolute;
+top:70px;          /* starts below navbar */
+right:20px;
+
+width:200px;       /* menu width */
+padding:20px;
+
+flex-direction:column;
+align-items:center;
+gap:20px;
+
+background:#0a0f14;
+border:1px solid #1f2937;
+border-radius:10px;
+
+transform:translateX(120%);
+transition:0.3s ease;
+}
+
+.nav-menu.active{transform:translateX(0);}
+.hamburger{display:flex;}
+}
+
+/* ---------------- HOME ---------------- */
+
+#home{
+background-image:
+linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+background-size:60px 60px;
+}
+
+.hero-wrapper{
+width:90%;
+max-width:1100px;
+margin:auto;
+display:flex;
+align-items:center;
+gap:80px;
+padding-top:120px;
+}
+
+.hero-text h1{
+font-size:6rem;
+line-height:1;
+}
+
+.hero-text span{color:#f59e0b;}
+
+.hero-text p{
+margin-top:20px;
+color:#9ca3af;
+max-width:500px;
+}
+
+.hero-image img{
+width:300px;
+height:300px;
+border-radius:50%;
+border:2px solid white;
+object-fit:cover;
+opacity:0;
+transform:translateY(-80px);
+animation:slideUp 1.5s forwards, float 4s ease-in-out infinite 1s;
+}
+
+@keyframes slideUp{
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+100%{transform:translateY(0);}
+}
+
+@media(max-width:900px){
+
+.hero-wrapper{
+flex-direction:column;
+text-align:center;
+}
+
+.hero-text h1{
+font-size:3.5rem;
+}
+
+.hero-image img{
+width:220px;
+height:220px;
+}
+
+/* --- ABOUT FIX --- */
+
+.about-layout{
+flex-direction:column;
+gap:40px;
+}
+
+.about-text{
+order:1;
+}
+
+.education{
+order:2;
+padding-left:25px;
+margin-top:20px;
+}
+
+/* consistent side padding */
+.section-container{
+padding-left:20px;
+padding-right:20px;
+}
+
+}
+/* ---------------- ABOUT ---------------- */
+
+.about-layout{
+display:flex;
+gap:80px;
+}
+
+.about-text{flex:1;color:#9ca3af;}
+
+.education{
+flex:1;
+position:relative;
+padding-left:40px;
+}
+
+/* Each timeline item */
+.edu-item{
+position:relative;
+margin-bottom:50px;
+padding-left:10px;
+}
+
+/* Circle only */
+.edu-item::before{
+content:"";
+position:absolute;
+left:-30px;
+top:5px;
+width:14px;
+height:14px;
+border-radius:50%;
+background:#0a0f14;
+border:2px solid #f59e0b;
+z-index:2;
+}
+
+/* Remove line from last item */
+.edu-item:last-child::after{
+display:none;
+}
+
+.edu-item::before{
+content:"";
+position:absolute;
+left:-32px;
+top:5px;
+width:14px;
+height:14px;
+border-radius:50%;
+border:2px solid #f59e0b;
+background:#0a0f14;
+}
+
+.edu-year{color:#9ca3af;font-size:0.9rem;margin-bottom:5px;}
+.edu-title{font-weight:600;}
+.edu-desc{color:#9ca3af;}
+
+/* ---------------- PROJECTS ---------------- */
+
+.projects-layout{
+display:flex;
+gap:50px;
+}
+
+.project-categories{
+width:250px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.category-card{
+background:white;
+color:#0a0f14;
+padding:20px;
+border-radius:8px;
+cursor:pointer;
+text-align:center;
+transition:.3s;
+}
+
+.category-card.active,
+.category-card:hover{
+background:#f59e0b;
+color:white;
+}
+
+.project-panel{
+flex:1;
+}
+
+.project-box{
+background:white;
+color:#0a0f14;
+padding:15px;
+margin-bottom:10px;
+border-radius:6px;
+cursor:pointer;
+transition:.3s;
+}
+
+.project-box.active,
+.project-box:hover{
+background:#f59e0b;
+color:white;
+}
+
+.project-details{
+max-height:0;
+overflow:hidden;
+opacity:0;
+transition:max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.project-box.active .project-details{
+max-height:500px;
+opacity:1;
+margin-top:8px;
+}
+
+/* MOBILE ACCORDION */
+
+@media(max-width:900px){
+
+.projects-layout{flex-direction:column;}
+.project-panel{display:none;}
+
+.mobile-project-list{
+margin-top:10px;
+}
+
+.mobile-project-list .project-box{
+margin-bottom:8px;
+}
+
+}
+
+/* ---------------- SKILLS ---------------- */
+
+.skills-list{
+list-style:none;
+margin-top:20px;
+}
+
+.skills-list li{
+margin-bottom:10px;
+color:#9ca3af;
+}
+
+/* Contact_Section */
+
+.contact-wrapper{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+margin-top:40px;
+}
+
+.contact-card{
+background:rgba(255,255,255,0.02);
+border:1px solid #1f2937;
+border-radius:10px;
+padding:18px;
+color:#f59e0b;
+text-align:center;
+transition:0.3s ease;
+}
+
+.contact-card:hover{
+border-color:#f59e0b;
+transform:translateY(-4px);
+}
+
+.contact-card i{
+font-size:1.4rem;
+color:#f59e0b;
+margin-bottom:6px;
+}
+
+.contact-card h3{
+font-size:0.95rem;
+margin-bottom:4px;
+}
+
+.contact-card a{
+color:#9ca3af;
+font-size:0.85rem;
+text-decoration:none;
+word-break:break-all;
+}
+
+.contact-card a:hover{
+color:#f59e0b;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.contact-wrapper{
+grid-template-columns:1fr;
+}
+
+}
+
+.contact-text{
+color:#f59e0b;
+font-size:1.2rem;
+}
+
+/*Skills*/
+.skills-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:30px;
+margin-top:40px;
+}
+
+/* SKILL CARD */
+
+.skill-box{
+background:rgba(255,255,255,0.02);
+border:1px solid #1f2937;
+color:#f59e0b;
+border-radius:12px;
+padding:25px;
+transition:0.3s ease;
+}
+
+.skill-box:hover{
+border-color:#f59e0b;
+transform:translateY(-6px);
+}
+
+/* TITLE */
+
+.skill-box h3{
+margin-bottom:15px;
+font-size:1.1rem;
+}
+
+/* REMOVE DEFAULT LIST STYLE */
+
+.skill-box ul{
+list-style:none;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+/* TAG STYLE */
+
+.skill-box li{
+border:1px solid #1f2937;
+padding:6px 12px;
+border-radius:20px;
+font-size:0.85rem;
+color:#9ca3af;
+transition:0.2s;
+}
+
+.skill-box li:hover{
+border-color:#f59e0b;
+color:#ffffff;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.skills-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+<body>
+<div class="robot-bg">
+  <img src="unnamed (1).jpg" alt="Little Buddy Outline">
+</div>
+<nav>
+<div class="nav-container">
+<div class="logo">VannshDevs<span>.</span></div>
+<ul class="nav-menu">
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="hamburger"><span></span><span></span><span></span></div>
+</div>
+</nav>
+
+<section id="home">
+<div class="hero-wrapper">
+<div class="hero-image"><img src="Profile 3.jpeg"></div>
+<div class="hero-text">
+<h1>Vansh<br><span>Soni</span></h1>
+<p>I build thoughtful, performant applications with modern technologies.</p>
+<a href="#about" class="explore-btn">Let’s Explore ↓</a>
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="section-container">
+<h2 class="section-heading">About Me</h2>
+<div class="about-layout">
+<div class="about-text">
+<p>
+I’m an Electrical Engineering student passionate about embedded systems, electronics, and intelligent design. I enjoy building practical hardware projects, experimenting with microcontrollers, and developing interactive interfaces. From circuit troubleshooting to software integration, I focus on creating efficient, innovative solutions that blend technical precision with creativity.
+</p>
+</div>
+<div class="education">
+<div class="edu-item">
+<div class="edu-year">2024 — 2028</div>
+<div class="edu-title">Pandit Deendayal Energy University</div>
+<div class="edu-desc">B.Tech in Electrical Engineering</div>
+
+</div>
+<div class="edu-item">
+<div class="edu-year">— 2024</div>
+<div class="edu-title">H.G. International School</div>
+<div class="edu-desc">SSC — 71.4%</div>
+</div>
+<div class="edu-item">
+<div class="edu-year">— 2022</div>
+<div class="edu-title">St. John's School</div>
+<div class="edu-desc">HSC — 84.8%</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="section-container">
+<h2 class="section-heading">Projects</h2>
+<div class="projects-layout">
+
+<div class="project-categories">
+<div class="category-card" data-cat="major">Major Projects</div>
+<div class="category-card" data-cat="minor">Minor Projects</div>
+<div class="category-card" data-cat="fun">Fun Projects</div>
+</div>
+
+<div class="project-panel">
+<h2 id="panelTitle">Major Projects</h2>
+<div id="projectItems"></div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="skills">
+<div class="section-container">
+<h2 class="section-heading">Skills</h2>
+<div class="skills-grid">
+
+<div class="skill-box">
+<h3>Programming</h3>
+<ul>
+<li>C/C++</li>
+<li>Python</li>
+<li>HTML/CSS</li>
+<li>Responsive Design</li>
+</ul>
+</div>
+
+<div class="skill-box">
+<h3>Embedded Systems</h3>
+<ul>
+<li>Arduino</li>
+<li>ESP32</li>
+<li>STM32</li>
+<li>Sensor Interfacing</li>
+</ul>
+</div>
+
+<div class="skill-box">
+<h3>Engineering Tools</h3>
+<ul>
+<li>MATLAB</li>
+<li>Simulink</li>
+<li>SOLIDWORKS</li>
+<li>ANSYS</li>
+<li>Circuit Design</li>
+</ul>
+</div>
+
+<div class="skill-box">
+<h3>Creative Skills</h3>
+<ul>
+<li>UI/UX Design</li>
+<li>Blender Animation</li>
+<li>Basic Gaming Skills</li>
+</ul>
+</div>
+
+
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="section-container">
+
+<h2 class="section-heading">Contact</h2>
+
+<div class="contact-wrapper">
+
+<div class="contact-card">
+<i class="fas fa-envelope"></i>
+<h3>Email</h3>
+<a href="mailto:vannshh.13@gmail.com">vannshh.13@gmail.com</a>
+</div>
+
+<div class="contact-card">
+<i class="fab fa-github"></i>
+<h3>GitHub</h3>
+<a href="https://github.com/vannshdevs" target="_blank">github.com/vannshdevs</a>
+</div>
+
+<div class="contact-card">
+<i class="fab fa-linkedin"></i>
+<h3>LinkedIn</h3>
+<a href="https://linkedin.com/in/vannsh13" target="_blank">linkedin.com/in/vannsh13</a>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<script>
+
+/* NAVBAR */
+
+const hamburger=document.querySelector(".hamburger");
+const navMenu=document.querySelector(".nav-menu");
+
+hamburger.onclick=()=>{
+hamburger.classList.toggle("active");
+navMenu.classList.toggle("active");
+};
+
+/* CLOSE MENU WHEN NAV LINK CLICKED */
+
+document.querySelectorAll(".nav-menu a").forEach(link=>{
+
+link.addEventListener("click",()=>{
+
+hamburger.classList.remove("active");
+navMenu.classList.remove("active");
+
+});
+
+});
+
+/* ACTIVE NAV LINK */
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-menu a");
+
+window.addEventListener("scroll", () => {
+let current = "";
+
+sections.forEach(section => {
+const sectionTop = section.offsetTop - 150;
+if (window.scrollY >= sectionTop) {
+current = section.getAttribute("id");
+}
+});
+
+navLinks.forEach(link => {
+link.classList.remove("active");
+if (link.getAttribute("href") === "#" + current) {
+link.classList.add("active");
+}
+});
+});
+
+/* FIX MOBILE → DESKTOP SWITCH */
+
+window.addEventListener("resize",()=>{
+
+if(window.innerWidth > 900){
+
+document.querySelectorAll(".mobile-project-list").forEach(list=>{
+list.remove();
+});
+
+document.querySelector(".project-panel").style.display="block";
+
+}
+
+});
+
+/* PROJECT SYSTEM */
+
+const catCards=document.querySelectorAll(".category-card");
+const panel=document.querySelector(".project-panel");
+const panelTitle=document.getElementById("panelTitle");
+const panelItems=document.getElementById("projectItems");
+
+const projectData={
+
+major:[
+{
+title:"eBaja Electric ATV",
+desc:`
+Team Sovereign<br><br>
+
+Designed the complete electric drivetrain for a competitive all-terrain vehicle.
+Engineered HV/LV systems, safety interlocks, and regenerative braking under 
+strict weight and power constraints.<br><br>
+
+System Components:<br>
+• Electric drivetrain architecture & motor selection<br>
+• High-voltage battery management and safety systems<br>
+• Regenerative braking implementation<br>
+• Competition-grade engineering under constraints<br>
+`
+},
+{
+title:"eBaja Electric ATV",
+desc:`
+Team Sovereign<br><br>
+
+Designed the complete electric drivetrain for a competitive all-terrain vehicle.
+Engineered HV/LV systems, safety interlocks, and regenerative braking under 
+strict weight and power constraints.<br><br>
+
+System Components:<br>
+• Electric drivetrain architecture & motor selection<br>
+• High-voltage battery management and safety systems<br>
+• Regenerative braking implementation<br>
+• Competition-grade engineering under constraints<br>
+`
+}
+],
+
+minor:[
+{
+title:"Smart Switch Project",
+desc:`
+<br>A smart home automation system that allows wireless control of electrical appliances.<br>
+
+The system integrates microcontrollers and relay modules to remotely control 
+devices using a mobile interface or wireless communication.<br>
+
+More details will be added here.
+`
+},
+{
+title:"Smart Switch Project",
+desc:`
+<br>A smart home automation system that allows wireless control of electrical appliances.<br>
+
+The system integrates microcontrollers and relay modules to remotely control 
+devices using a mobile interface or wireless communication.<br>
+
+More details will be added here.
+`
+}
+],
+
+fun:[
+{
+title:"My Little Buddy 2.0",
+desc:`
+This section will describe my Little Buddy project.<br><br>
+
+Little Buddy is a fun experimental build where I explore creative electronics,
+embedded programming, and interactive behavior.<br>
+
+More information about the hardware and features will be added soon.
+`
+},
+{
+title:"My Little Buddy 2.0",
+desc:`
+This section will describe my Little Buddy project.<br><br>
+
+Little Buddy is a fun experimental build where I explore creative electronics,
+embedded programming, and interactive behavior.<br>
+
+More information about the hardware and features will be added soon.
+`
+}
+]
+
+};
+
+function loadProjects(type){
+panelItems.innerHTML="";
+panelTitle.textContent=type.charAt(0).toUpperCase()+type.slice(1)+" Projects";
+
+projectData[type].forEach(p=>{
+const box=document.createElement("div");
+box.className="project-box";
+box.innerHTML=`<h4>${p.title}</h4><div class="project-details">${p.desc}</div>`;
+box.onclick=()=>{
+document.querySelectorAll(".project-box").forEach(b=>b.classList.remove("active"));
+box.classList.add("active");
+};
+panelItems.appendChild(box);
+});
+}
+
+/* Desktop default */
+loadProjects("major");
+catCards[0].classList.add("active");
+
+catCards.forEach(card=>{
+card.addEventListener("click",()=>{
+
+/* REMOVE OLD MOBILE PROJECT LISTS */
+document.querySelectorAll(".mobile-project-list").forEach(list=>{
+list.remove();
+});
+
+const type=card.dataset.cat;
+
+if(window.innerWidth>900){
+catCards.forEach(c=>c.classList.remove("active"));
+card.classList.add("active");
+panel.style.display="block";
+loadProjects(type);
+}else{
+
+catCards.forEach(c=>{
+c.classList.remove("active");
+if(c.nextElementSibling?.classList.contains("mobile-project-list")){
+c.nextElementSibling.remove();
+}
+});
+
+card.classList.add("active");
+
+const list=document.createElement("div");
+list.className="mobile-project-list";
+
+projectData[type].forEach(p=>{
+list.innerHTML+=`
+<div class="project-box">
+<h4>${p.title}</h4>
+<p>${p.desc}</p>
+</div>`;
+});
+
+card.insertAdjacentElement("afterend",list);
+}
+
+});
+});
+
+</script>
+
+</body>
+</html>
