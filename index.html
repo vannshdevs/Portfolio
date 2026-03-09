@@ -1005,9 +1005,36 @@ list.className="mobile-project-list";
 projectData[type].forEach(p=>{
 list.innerHTML+=`
 <div class="project-box">
+
+<div class="project-header">
 <h4>${p.title}</h4>
-<p>${p.desc}</p>
+<i class="fas fa-angle-down project-arrow"></i>
+</div>
+
+<div class="project-details">
+${p.desc}
+</div>
+
 </div>`;
+
+list.querySelectorAll(".project-box").forEach(box=>{
+
+box.addEventListener("click",()=>{
+
+if(box.classList.contains("active")){
+box.classList.remove("active");
+}else{
+
+list.querySelectorAll(".project-box")
+.forEach(b=>b.classList.remove("active"));
+
+box.classList.add("active");
+
+}
+
+});
+
+});
 });
 
 card.insertAdjacentElement("afterend",list);
