@@ -588,13 +588,38 @@ color:#ffffff;
 grid-template-columns:1fr;
 }
 
+/*DropDown Menu*/
+.project-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.project-header h4{
+margin:0;
+}
+
+.project-arrow{
+font-size:14px;
+color:#0a0f14;
+transition:transform 0.3s ease;
+}
+
+.project-box.active .project-arrow{
+transform:rotate(180deg);
+}
+
+.project-box.active .project-arrow{
+color:white;
+}
+
 }
 
 </style>
 </head>
 <body>
 <div class="robot-bg">
-  <img src="unnamed_1.jpg" alt="Little Buddy Outline">
+  <img src="unnamed (1).jpg" alt="Little Buddy Outline">
 </div>
 <nav>
 <div class="nav-container">
@@ -919,10 +944,26 @@ panelTitle.textContent=type.charAt(0).toUpperCase()+type.slice(1)+" Projects";
 projectData[type].forEach(p=>{
 const box=document.createElement("div");
 box.className="project-box";
-box.innerHTML=`<h4>${p.title}</h4><div class="project-details">${p.desc}</div>`;
+box.innerHTML=`
+<div class="project-header">
+<h4>${p.title}</h4>
+<i class="fas fa-chevron-down project-arrow"></i>
+</div>
+<div class="project-details">${p.desc}</div>
+`;
 box.onclick=()=>{
-document.querySelectorAll(".project-box").forEach(b=>b.classList.remove("active"));
+
+if(box.classList.contains("active")){
+box.classList.remove("active");
+}else{
+
+document.querySelectorAll(".project-box")
+.forEach(b=>b.classList.remove("active"));
+
 box.classList.add("active");
+
+}
+
 };
 panelItems.appendChild(box);
 });
@@ -979,4 +1020,3 @@ card.insertAdjacentElement("afterend",list);
 
 </body>
 </html>
-
