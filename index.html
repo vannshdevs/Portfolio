@@ -280,7 +280,8 @@ border:2px solid white;
 object-fit:cover;
 opacity:0;
 transform:translateY(-80px);
-animation:slideUp 1.5s forwards, float 4s ease-in-out infinite 1s;
+animation:slideUp 1.2s ease forwards,
+float 4s ease-in-out infinite 1.2s;
 }
 
 @keyframes slideUp{
@@ -418,6 +419,13 @@ background:#f59e0b;
 color:white;
 }
 
+.category-card.active{
+border:4px solid #f59e0b;
+
+background:#0a0f14;
+color:#ffffff;
+}
+
 .category-arrow{
 font-size:14px;
 transition:transform 0.3s ease;
@@ -452,13 +460,28 @@ color:white;
 max-height:0;
 overflow:hidden;
 opacity:0;
-transition:max-height 0.4s ease, opacity 0.3s ease;
+transition:max-height 0.35s ease, opacity 0.25s ease;
 }
 
 .project-box.active .project-details{
-max-height:500px;
+max-height:220px;
 opacity:1;
 margin-top:8px;
+overflow-y: auto;
+padding-right: 6px;
+}
+
+.project-details::-webkit-scrollbar{
+width:6px;
+}
+
+.project-details::-webkit-scrollbar-thumb{
+background:#ffffff;
+border-radius:10px;
+}
+
+.project-details::-webkit-scrollbar-track{
+background:transparent;
 }
 
 /* MOBILE ACCORDION */
@@ -652,6 +675,29 @@ margin-top:60px;
 letter-spacing:0.03em;
 }
 
+/* Smooth dropdown animation */
+
+.mobile-project-list{
+max-height:0;
+overflow:hidden;
+opacity:0;
+transform:translateY(-5px);
+
+transition:
+max-height 0.45s ease,
+opacity 0.35s ease,
+transform 0.35s ease;
+}
+
+/* when dropdown opens */
+
+.mobile-project-list.open{
+max-height:1200px;   /* large enough for projects */
+opacity:1;
+transform:translateY(0);
+}
+
+
 </style>
 </head>
 <body>
@@ -829,6 +875,7 @@ I’m an Electrical Engineering student passionate about embedded systems, elect
 </footer>
 <script>
 
+
 /* NAVBAR */
 
 const hamburger=document.querySelector(".hamburger");
@@ -882,7 +929,15 @@ window.addEventListener("resize",()=>{
 if(window.innerWidth > 900){
 
 document.querySelectorAll(".mobile-project-list").forEach(list=>{
-list.remove();
+
+list.classList.remove("open");   // trigger close animation
+
+setTimeout(()=>{
+if(list.parentNode){
+list.parentNode.removeChild(list);
+}
+},450);   // must match CSS transition time
+
 });
 
 document.querySelector(".project-panel").style.display="block";
@@ -1020,8 +1075,11 @@ panelItems.appendChild(box);
 }
 
 /* Desktop default */
-loadProjects("major");
-catCards[0].classList.add("active");
+/* Desktop default */
+if(window.innerWidth > 900){
+    loadProjects("major");
+    catCards[0].classList.add("active");
+}
 
 catCards.forEach(card=>{
 
@@ -1029,9 +1087,18 @@ card.addEventListener("click",()=>{
 
 const type = card.dataset.cat;
 
-/* REMOVE ANY OLD MOBILE LISTS */
+
+/* REMOVE OLD MOBILE LISTS WITH ANIMATION */
 document.querySelectorAll(".mobile-project-list").forEach(list=>{
+
+list.classList.remove("open");   // start closing animation
+
+setTimeout(()=>{
+if(list.parentNode){
 list.remove();
+}
+},400);  // must match CSS transition
+
 });
 
 /* ---------- DESKTOP BEHAVIOR ---------- */
@@ -1111,6 +1178,10 @@ box.classList.add("active");
 /* insert list below clicked category */
 card.insertAdjacentElement("afterend",list);
 
+/* trigger animation */
+setTimeout(()=>{
+list.classList.add("open");
+},10);
 }
 
 });
